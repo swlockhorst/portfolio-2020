@@ -1,6 +1,6 @@
 require("dotenv").config({
   path: `.env`,
-})
+});
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -33,8 +33,8 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: process.env.CONTENTFUL_SPACE_ID,
-        accessToken: process.env.CONTENTFUL_KEY,
+        spaceId: process.env.GATSBY_CONTENTFUL_SPACE_ID,
+        accessToken: process.env.GATSBY_CONTENTFUL_KEY,
         downloadLocal: true,
       },
     },
@@ -42,4 +42,4 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-}
+};
