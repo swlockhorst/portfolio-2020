@@ -1,7 +1,6 @@
-// require("dotenv").config({
-//   path: `.env`,
-// });
-
+require("dotenv").config({
+  path: `.env`,
+});
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -34,8 +33,8 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: `06gpmtuo4kf`,
-        accessToken: `7hbPufZrnEroLIFebq736-iLDq7FNhZRRUrDXXUBFWw`,
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_KEY,
         downloadLocal: true,
       },
     },
