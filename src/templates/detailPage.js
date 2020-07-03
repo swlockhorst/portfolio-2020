@@ -1,5 +1,8 @@
-import React from "react"
-import { graphql } from "gatsby"
+import React from "react";
+import { graphql } from "gatsby";
+
+import SEO from "../components/seo";
+import Layout from "../components/layout";
 
 export const query = graphql`
   query($slug: String!) {
@@ -19,16 +22,19 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
-const DetailPage = data => {
+const DetailPage = (data) => {
   return (
-    <div>
-      <div>Test:</div>
-      <div>{console.log(">>>", data)}</div>
-      <p>{data.data.contentfulProject.longDescription.longDescription}</p>
-    </div>
-  )
-}
+    <>
+      <Layout>
+        <SEO title={data.data.contentfulProject.title} />
+        <div>
+          <p>{data.data.contentfulProject.longDescription.longDescription}</p>
+        </div>
+      </Layout>
+    </>
+  );
+};
 
-export default DetailPage
+export default DetailPage;

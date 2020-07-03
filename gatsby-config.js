@@ -3,9 +3,9 @@ require("dotenv").config({
 });
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Steven Lockhorst`,
+    description: ``,
+    author: `Steven Lockhorst`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -36,6 +36,16 @@ module.exports = {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         accessToken: process.env.CONTENTFUL_KEY,
         downloadLocal: true,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Press Start 2P`,
+          `Roboto\:300i,400,400i,700,900`, // you can also specify font weights and styles
+        ],
+        display: "swap",
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
