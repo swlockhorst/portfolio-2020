@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import ProjectPane from "../components/ProjectPane";
+import ProjectPane from "../components/projectPane";
 import AspectObject from "../components/aspectObject";
 import { fonts, breakpoints, settings } from "../constants";
 
