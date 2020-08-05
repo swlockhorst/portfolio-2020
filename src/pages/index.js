@@ -4,28 +4,30 @@ import styled from "@emotion/styled";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import ProjectPane from "../components/ProjectPane";
 import AspectObject from "../components/aspectObject";
-import { breakpoints, settings } from "../constants";
+import { fonts, breakpoints, settings } from "../constants";
 
 const IndexPage = (data) => {
   return (
     <>
       <Layout>
         <SEO title="Home" />
-        <AboutLayout>
-          <Intro>
-            <IntroPic>
-              <AspectObject
-                ratioWidth={1}
-                ratioHeight={1}
-                backgroundColor={"#000"}
-              >
-                <img src={data.data.contentfulPage.images[0].file.url} alt="" />
-              </AspectObject>
-            </IntroPic>
-            <IntroBody>
-              {data.data.contentfulPage.body.content[0].content[0].value}
-            </IntroBody>
+        <Intro>
+          <IntroPic>
+            <AspectObject
+              ratioWidth={1}
+              ratioHeight={1}
+              backgroundColor={"#000"}
+            >
+              <img src={data.data.contentfulPage.images[0].file.url} alt="" />
+            </AspectObject>
+          </IntroPic>
+          <IntroBody>
+            {data.data.contentfulPage.body.content[0].content[0].value}
+          </IntroBody>
+          <div>
+            <h1>Contact me</h1>
             <IntroLinks>
               {data.data.contentfulPage.socialMediaLinks.map((link, index) => {
                 return (
@@ -35,35 +37,41 @@ const IndexPage = (data) => {
                 );
               })}
             </IntroLinks>
-          </Intro>
+          </div>
+        </Intro>
+        <BodyLabel>Projects</BodyLabel>
+        <BodyLayout>
+          <ProjectPaneContainer>
+            <ProjectPane />
+          </ProjectPaneContainer>
 
           <Grid>
             {data.data.allContentfulProject.edges.map((edge) => {
               return (
                 <li key={edge.node.title}>
-                  <Link to={`/${edge.node.slug}/`}>
-                    <Tile>
-                      <TileFrameTopBottom className={`frame`} />
-                      <TileFrameLeftRight className={`frame`} />
-                      <AspectObject
-                        ratioWidth={8}
-                        ratioHeight={6}
-                        backgroundColor={"#000"}
-                      >
-                        <img src={edge.node.poster.sizes.src} alt={""} />
-                      </AspectObject>
-                      <Label>
-                        <LabelTop>{edge.node.title}</LabelTop>
+                  {/* <Link to={`/${edge.node.slug}/`}> */}
+                  <Tile>
+                    <TileFrameTopBottom className={`frame`} />
+                    <TileFrameLeftRight className={`frame`} />
+                    <AspectObject
+                      ratioWidth={8}
+                      ratioHeight={6}
+                      backgroundColor={"#000"}
+                    >
+                      <img src={edge.node.poster.sizes.src} alt={""} />
+                    </AspectObject>
+                    <Label>
+                      <LabelTop>{edge.node.title}</LabelTop>
 
-                        <LabelBottom>{edge.node.client}</LabelBottom>
-                      </Label>
-                    </Tile>
-                  </Link>
+                      <LabelBottom>{edge.node.client}</LabelBottom>
+                    </Label>
+                  </Tile>
+                  {/* </Link> */}
                 </li>
               );
             })}
           </Grid>
-        </AboutLayout>
+        </BodyLayout>
       </Layout>
     </>
   );
@@ -116,17 +124,22 @@ export const query = graphql`
   }
 `;
 
-const AboutLayout = styled.div`
+const BodyLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 40px;
 
   @media (min-width: ${breakpoints.md}) {
-    grid-template-columns: 240px 2fr;
+    grid-template-columns: 440px auto;
   }
 `;
 
-const Intro = styled.div``;
+const Intro = styled.div`
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  grid-gap: 20px;
+  margin-bottom: 30px;
+`;
 
 const IntroPic = styled.div`
   position: relative;
@@ -142,14 +155,23 @@ const IntroPic = styled.div`
     background: linear-gradient(#da1b60, #ff8a00);
   }
 `;
+
 const IntroBody = styled.p`
+  font-size: 20px;
   margin-bottom: 20px;
 `;
-const IntroLinks = styled.ul``;
+
+const IntroLinks = styled.ul`
+  font-size: 20px;
+`;
+
+const ProjectPaneContainer = styled.div`
+  position: relative;
+`;
 
 const Grid = styled.ul`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
 
   @media (min-width: ${breakpoints.sm}) {
@@ -213,6 +235,35 @@ const TileFrameTopBottom = styled.div`
   &:after {
     bottom: 0;
     background: #ff8a00;
+  }
+`;
+
+const BodyLabel = styled.h1`
+  font-size: 60px;
+  line-height: 1.2;
+  display: block;
+  color: #da1b60;
+  position: relative;
+  text-align: left;
+  margin-bottom: 30px;
+  font-family: ${fonts.fancy};
+  font-weight: 900;
+
+  &:before {
+    content: "Projects";
+    font-size: 60px;
+    line-height: 1.2;
+    display: block;
+    background: linear-gradient(to top, #ff8a00, #da1b60);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
   }
 `;
 
