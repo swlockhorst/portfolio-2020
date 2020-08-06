@@ -1,5 +1,5 @@
-import React from "react";
-import { graphql, Link } from "gatsby";
+import React, { useState } from "react";
+import { graphql } from "gatsby";
 import styled from "@emotion/styled";
 
 import Layout from "../components/layout";
@@ -9,6 +9,11 @@ import AspectObject from "../components/aspectObject";
 import { fonts, breakpoints, settings } from "../constants";
 
 const IndexPage = (data) => {
+  const [selectedProject, setSelectedProject] = useState(
+    data.data.allContentfulProject.edges[0].node
+  );
+
+  console.log("active project is ", selectedProject);
   return (
     <>
       <Layout>
@@ -41,8 +46,9 @@ const IndexPage = (data) => {
         </Intro>
         <BodyLabel>Projects</BodyLabel>
         <BodyLayout>
+          {console.log(selectedProject)}
           <ProjectPaneContainer>
-            <ProjectPane />
+            <ProjectPane data={selectedProject} />
           </ProjectPaneContainer>
 
           <Grid>
@@ -50,7 +56,7 @@ const IndexPage = (data) => {
               return (
                 <li key={edge.node.title}>
                   {/* <Link to={`/${edge.node.slug}/`}> */}
-                  <Tile>
+                  <Tile onClick={() => setSelectedProject(edge.node)}>
                     <TileFrameTopBottom className={`frame`} />
                     <TileFrameLeftRight className={`frame`} />
                     <AspectObject
@@ -109,6 +115,10 @@ export const query = graphql`
           client
           slug
           title
+          tech
+          longDescription {
+            longDescription
+          }
           poster {
             title
             sizes {
@@ -171,16 +181,16 @@ const ProjectPaneContainer = styled.div`
 
 const Grid = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 20px;
 
-  @media (min-width: ${breakpoints.sm}) {
+  @media (min-width: ${breakpoints.xs}) {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media (min-width: ${breakpoints.xl}) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  /* @media (min-width: ${breakpoints.xl}) {
+    grid-template-columns: 1fr 1fr;
+  } */
 `;
 
 const Tile = styled.div`

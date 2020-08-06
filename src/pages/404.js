@@ -2,7 +2,7 @@ import React from "react";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import GlobalStyles from "../components/globalStyles";
+// import GlobalStyles from "../components/globalStyles";
 
 const NotFoundPage = () => {
   return (

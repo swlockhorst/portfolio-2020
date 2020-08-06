@@ -2,45 +2,43 @@ import React from "react";
 import styled from "@emotion/styled";
 import AspectObject from "../components/aspectObject";
 
-const ProjectPane = () => {
+const ProjectPane = (data) => {
+  console.log("props >>", data);
   return (
     <Container>
       <Pic>
-        <AspectObject ratioWidth={1} ratioHeight={1} backgroundColor={"#000"}>
-          {/* <img src={data.data.contentfulPage.images[0].file.url} alt="" /> */}
+        <AspectObject ratioWidth={4} ratioHeight={3} backgroundColor={"#000"}>
+          <img src={data.data.poster.fluid.src} alt="" />
         </AspectObject>
 
         <Table>
           <tbody>
-            <tr class="HeroTable-tableRow">
-              <th class="HeroTable-tableHeader">Role</th>
-              <td class="HeroTable-tableData">
+            <tr>
+              <th>Role</th>
+              <td>
                 <div>
-                  <div class="TableHeader-container">Tank</div>
+                  <div>Primary Developer</div>
                 </div>
               </td>
             </tr>
-            <tr class="HeroTable-tableRow">
-              <th class="HeroTable-tableHeader">Difficulty</th>
-              <td class="HeroTable-tableData">
-                <div>Medium</div>
+            <tr>
+              <th>Tech</th>
+              <td>
+                <div>{data.data.tech}</div>
               </td>
             </tr>
-            <tr class="HeroTable-tableRow">
-              <th class="HeroTable-tableHeader">Universe</th>
-              <td class="HeroTable-tableData">
+            <tr>
+              <th>Client</th>
+              <td>
                 <div>
-                  <div class="TableHeader-container">Warcraft</div>
+                  <div>{data.data.client}</div>
                 </div>
               </td>
             </tr>
           </tbody>
         </Table>
       </Pic>
-      <Body>
-        Test Test Test Test Test Test Test Test Test Test Test Test Test Test
-        Test Test Test Test Test Test Test Test
-      </Body>
+      <Body>{data.data.longDescription.longDescription}</Body>
     </Container>
   );
 };
@@ -52,11 +50,14 @@ const Table = styled.table`
   bottom: -20px;
   transform: translateX(-50%);
   left: 50%;
-  background: red;
+  background: linear-gradient(#222736, #201c29);
+  min-width: 60%;
+  z-index: 2;
 
   th,
   td {
     border: 1px solid black;
+    padding: 8px;
   }
 `;
 
@@ -80,11 +81,21 @@ const Container = styled.div`
 
 const Pic = styled.div`
   position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, #222736 20%, transparent);
+  }
 `;
 
 const Body = styled.p`
   margin-bottom: 20px;
-  padding: 20px;
+  padding: 30px 20px;
+  line-height: 1.2;
   background: linear-gradient(#222736, #201c29);
 `;
-const Links = styled.ul``;

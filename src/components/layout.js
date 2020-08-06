@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
           <Footer>
             © {new Date().getFullYear()} Steven Lockhorst, Built with
             {` `}
-            <a href="https://www.gatsbyjs.org" target="_blank">
+            <a href="https://www.gatsbyjs.org" target="_blank" rel="noreferrer">
               Gatsby
             </a>
           </Footer>
