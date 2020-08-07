@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import AspectObject from "../components/aspectObject";
+import { breakpoints } from "../constants";
 
 const ProjectPane = (data) => {
   console.log("props >>", data);

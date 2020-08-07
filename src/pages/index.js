@@ -139,16 +139,20 @@ const BodyLayout = styled.div`
   grid-template-columns: 1fr;
   grid-gap: 40px;
 
-  @media (min-width: ${breakpoints.md}) {
-    grid-template-columns: 440px auto;
+  @media (min-width: ${breakpoints.lg}) {
+    grid-template-columns: 440px 1fr;
   }
 `;
 
 const Intro = styled.div`
   display: grid;
-  grid-template-columns: 200px 1fr 1fr;
+  grid-template-columns: 150px 1fr;
   grid-gap: 20px;
   margin-bottom: 30px;
+
+  @media (min-width: ${breakpoints.sm}) {
+    grid-template-columns: 200px 1fr 1fr;
+  }
 `;
 
 const IntroPic = styled.div`
@@ -184,13 +188,9 @@ const Grid = styled.ul`
   grid-template-columns: 1fr;
   grid-gap: 20px;
 
-  @media (min-width: ${breakpoints.xs}) {
+  @media (min-width: ${breakpoints.sm}) {
     grid-template-columns: 1fr 1fr;
   }
-
-  /* @media (min-width: ${breakpoints.xl}) {
-    grid-template-columns: 1fr 1fr;
-  } */
 `;
 
 const Tile = styled.div`
