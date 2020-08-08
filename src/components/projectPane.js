@@ -5,7 +5,6 @@ import AspectObject from "../components/aspectObject";
 import Button from "../components/button";
 
 const ProjectPane = (data) => {
-  console.log("props >>", data);
   return (
     <Container>
       <Pic>

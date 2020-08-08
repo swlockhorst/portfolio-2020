@@ -18,7 +18,6 @@ const IndexPage = (data) => {
     query: `(max-width: ${breakpoints.lg})`,
   });
 
-  console.log("active project is ", selectedProject);
   return (
     <>
       <Layout>

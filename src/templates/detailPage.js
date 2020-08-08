@@ -22,7 +22,6 @@ const DetailPage = (data) => {
                 return <li key={index}>{tech}</li>;
               })}
 
-              {console.log(">>", data.data.contentfulProject)}
               <li></li>
             </ul>
           </Tech>
