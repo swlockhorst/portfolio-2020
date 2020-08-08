@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { breakpoints } from "../constants";
 import SEO from "../components/seo";
 import Layout from "../components/layout";
-import AspectObject from "../components/aspectObject";
+// import AspectObject from "../components/aspectObject";
 
 const DetailPage = (data) => {
   return (
@@ -29,8 +29,6 @@ const DetailPage = (data) => {
           <div>
             <h1>Project Summary:</h1>
             {data.data.contentfulProject.longDescription.longDescription}
-
-            <a href={"#"}>Check it out here!</a>
           </div>
         </DetailLayout>
       </Layout>

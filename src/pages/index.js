@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
+import { useMediaQuery } from "react-responsive";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import ProjectPane from "../components/projectPane";
 import AspectObject from "../components/aspectObject";
 import { fonts, breakpoints, settings } from "../constants";
-import { useWindowDimensions } from "../utils";
 
 const IndexPage = (data) => {
   const [selectedProject, setSelectedProject] = useState(
     data.data.allContentfulProject.edges[0].node
   );
 
-  const { height, width } = useWindowDimensions();
+  const isTabletOrMobile = useMediaQuery({
+    query: `(max-width: ${breakpoints.lg})`,
+  });
 
   console.log("active project is ", selectedProject);
   return (
@@ -49,7 +51,7 @@ const IndexPage = (data) => {
         </Intro>
         <BodyLabel>Projects</BodyLabel>
         <BodyLayout>
-          {width > 960 && (
+          {!isTabletOrMobile && (
             <ProjectPaneContainer>
               <ProjectPane data={selectedProject} />
             </ProjectPaneContainer>
@@ -59,7 +61,7 @@ const IndexPage = (data) => {
             {data.data.allContentfulProject.edges.map((edge) => {
               return (
                 <li key={edge.node.title}>
-                  {width < 960 ? (
+                  {isTabletOrMobile ? (
                     <Link to={`/${edge.node.slug}/`}>
                       <Tile onClick={() => setSelectedProject(edge.node)}>
                         <TileFrameTopBottom className={`frame`} />
