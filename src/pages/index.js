@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 
 import Layout from "../components/layout";
@@ -7,11 +7,14 @@ import SEO from "../components/seo";
 import ProjectPane from "../components/projectPane";
 import AspectObject from "../components/aspectObject";
 import { fonts, breakpoints, settings } from "../constants";
+import { useWindowDimensions } from "../utils";
 
 const IndexPage = (data) => {
   const [selectedProject, setSelectedProject] = useState(
     data.data.allContentfulProject.edges[0].node
   );
+
+  const { height, width } = useWindowDimensions();
 
   console.log("active project is ", selectedProject);
   return (
@@ -32,7 +35,7 @@ const IndexPage = (data) => {
             {data.data.contentfulPage.body.content[0].content[0].value}
           </IntroBody>
           <div>
-            <h1>Contact me</h1>
+            <ContactLabel>How to contact me:</ContactLabel>
             <IntroLinks>
               {data.data.contentfulPage.socialMediaLinks.map((link, index) => {
                 return (
@@ -46,33 +49,48 @@ const IndexPage = (data) => {
         </Intro>
         <BodyLabel>Projects</BodyLabel>
         <BodyLayout>
-          {console.log(selectedProject)}
-          <ProjectPaneContainer>
-            <ProjectPane data={selectedProject} />
-          </ProjectPaneContainer>
+          {width > 960 && (
+            <ProjectPaneContainer>
+              <ProjectPane data={selectedProject} />
+            </ProjectPaneContainer>
+          )}
 
           <Grid>
             {data.data.allContentfulProject.edges.map((edge) => {
               return (
                 <li key={edge.node.title}>
-                  {/* <Link to={`/${edge.node.slug}/`}> */}
-                  <Tile onClick={() => setSelectedProject(edge.node)}>
-                    <TileFrameTopBottom className={`frame`} />
-                    <TileFrameLeftRight className={`frame`} />
-                    <AspectObject
-                      ratioWidth={8}
-                      ratioHeight={6}
-                      backgroundColor={"#000"}
-                    >
-                      <img src={edge.node.poster.sizes.src} alt={""} />
-                    </AspectObject>
-                    <Label>
-                      <LabelTop>{edge.node.title}</LabelTop>
+                  {width < 960 ? (
+                    <Link to={`/${edge.node.slug}/`}>
+                      <Tile onClick={() => setSelectedProject(edge.node)}>
+                        <TileFrameTopBottom className={`frame`} />
+                        <TileFrameLeftRight className={`frame`} />
+                        <AspectObject
+                          ratioWidth={8}
+                          ratioHeight={6}
+                          backgroundColor={"#000"}
+                        >
+                          <img src={edge.node.poster.sizes.src} alt={""} />
+                        </AspectObject>
+                        <Label>
+                          <LabelTop>{edge.node.title}</LabelTop>
 
-                      <LabelBottom>{edge.node.client}</LabelBottom>
-                    </Label>
-                  </Tile>
-                  {/* </Link> */}
+                          <LabelBottom>{edge.node.client}</LabelBottom>
+                        </Label>
+                      </Tile>
+                    </Link>
+                  ) : (
+                    <Tile onClick={() => setSelectedProject(edge.node)}>
+                      <TileFrameTopBottom className={`frame`} />
+                      <TileFrameLeftRight className={`frame`} />
+                      <AspectObject
+                        ratioWidth={8}
+                        ratioHeight={6}
+                        backgroundColor={"#000"}
+                      >
+                        <img src={edge.node.poster.sizes.src} alt={""} />
+                      </AspectObject>
+                    </Tile>
+                  )}
                 </li>
               );
             })}
@@ -158,6 +176,7 @@ const Intro = styled.div`
 const IntroPic = styled.div`
   position: relative;
   margin-bottom: 20px !important;
+  display: inline-table;
 
   &:before {
     content: "";
@@ -175,6 +194,10 @@ const IntroBody = styled.p`
   margin-bottom: 20px;
 `;
 
+const ContactLabel = styled.h2`
+  font-size: 20px;
+`;
+
 const IntroLinks = styled.ul`
   font-size: 20px;
 `;
@@ -185,11 +208,11 @@ const ProjectPaneContainer = styled.div`
 
 const Grid = styled.ul`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
 
   @media (min-width: ${breakpoints.sm}) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 `;
 

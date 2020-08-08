@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "gatsby";
 import styled from "@emotion/styled";
 import AspectObject from "../components/aspectObject";
-import { breakpoints } from "../constants";
+import Button from "../components/button";
 
 const ProjectPane = (data) => {
   console.log("props >>", data);
@@ -39,7 +40,16 @@ const ProjectPane = (data) => {
           </tbody>
         </Table>
       </Pic>
-      <Body>{data.data.longDescription.longDescription}</Body>
+      <Body>
+        <BodyDescription>
+          {data.data.longDescription.longDescription}
+        </BodyDescription>
+        <ButtonContainer>
+          <Link to={`/${data.data.slug}/`}>
+            <Button>Learn More</Button>
+          </Link>
+        </ButtonContainer>
+      </Body>
     </Container>
   );
 };
@@ -99,4 +109,13 @@ const Body = styled.p`
   padding: 30px 20px;
   line-height: 1.2;
   background: linear-gradient(#222736, #201c29);
+`;
+
+const BodyDescription = styled.p`
+  margin-bottom: 30px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
