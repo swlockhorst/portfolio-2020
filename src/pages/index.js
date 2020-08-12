@@ -77,8 +77,6 @@ const IndexPage = (data) => {
                           </AspectObject>
                           <Label>
                             <LabelTop>{edge.node.title}</LabelTop>
-
-                            <LabelBottom>{edge.node.client}</LabelBottom>
                           </Label>
                         </Tile>
                       </Link>
