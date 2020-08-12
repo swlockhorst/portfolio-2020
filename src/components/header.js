@@ -9,7 +9,7 @@ const Header = ({ siteTitle }) => {
       <HeaderInner>
         <h1>
           <Link to="/">
-            <FancyText content={"Steven Lockhorst"} color={"#da1b60"} />
+            <FancyText content={"Steven Lockhorst"} />
           </Link>
         </h1>
       </HeaderInner>

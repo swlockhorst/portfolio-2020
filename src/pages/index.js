@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 import { useMediaQuery } from "react-responsive";
 
-import { fonts, breakpoints, settings } from "../constants";
+import { breakpoints, settings } from "../constants";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import ProjectPane from "../components/projectPane";
@@ -50,7 +50,7 @@ const IndexPage = (data) => {
           </div>
         </Intro>
         <Body>
-          <FancyText content={"Projects"} color={"#da1b60"} />
+          <FancyText content={"Projects"} />
 
           <BodyLayout>
             {!isTabletOrMobile && (
@@ -277,35 +277,6 @@ const TileFrameTopBottom = styled.div`
   &:after {
     bottom: 0;
     background: #ff8a00;
-  }
-`;
-
-const BodyLabel = styled.h1`
-  font-size: 60px;
-  line-height: 1.2;
-  display: block;
-  color: #da1b60;
-  position: relative;
-  text-align: left;
-  margin-bottom: 30px;
-  font-family: ${fonts.fancy};
-  font-weight: 900;
-
-  &:before {
-    content: "Projects";
-    font-size: 60px;
-    line-height: 1.2;
-    display: block;
-    background: linear-gradient(to top, #ff8a00, #da1b60);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    z-index: 1;
   }
 `;
 

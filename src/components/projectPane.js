@@ -103,7 +103,7 @@ const Pic = styled.div`
   }
 `;
 
-const Body = styled.p`
+const Body = styled.div`
   margin-bottom: 20px;
   padding: 30px 20px;
   line-height: 1.2;

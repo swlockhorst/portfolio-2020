@@ -5,15 +5,11 @@ import { fonts, breakpoints } from "../constants";
 /*
  * This component is handy for making the text have a gradient fill
  * Usage:
- * <FancyText content={"Steven Lockhorst"} color={"#da1b60"} />
+ * <FancyText content={"Sample Text"} />
  */
 
-const FancyText = ({ content, color }) => {
-  return (
-    <String content={content} color={color}>
-      {content}
-    </String>
-  );
+const FancyText = ({ content }) => {
+  return <String content={content}>{content}</String>;
 };
 
 const defaultSmall = "10.77vw";
@@ -23,7 +19,7 @@ const String = styled.span`
   font-size: ${defaultSmall};
   line-height: 1.2;
   display: block;
-  color: ${(props) => props.color};
+  color: #da1b60;
   position: relative;
   margin-bottom: 20px;
   font-family: ${fonts.fancy};
