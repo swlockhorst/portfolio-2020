@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import React from "react";
 import styled from "@emotion/styled";
-import { fonts } from "../constants";
+import FancyText from "../components/fancyText";
 
 const Header = ({ siteTitle }) => {
   return (
@@ -9,7 +9,7 @@ const Header = ({ siteTitle }) => {
       <HeaderInner>
         <h1>
           <Link to="/">
-            <Name>{siteTitle}</Name>
+            <FancyText content={"Steven Lockhorst"} color={"#da1b60"} />
           </Link>
         </h1>
       </HeaderInner>
@@ -27,32 +27,4 @@ const HeaderContainer = styled.header`
 const HeaderInner = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const Name = styled.div`
-  font-size: 60px;
-  line-height: 1.2;
-  display: block;
-  color: #da1b60;
-  position: relative;
-  text-align: center;
-  margin-bottom: 20px;
-  font-family: ${fonts.fancy};
-  font-weight: 900;
-  &:before {
-    content: "Steven Lockhorst";
-    font-size: 60px;
-    line-height: 1.2;
-    display: block;
-    background: linear-gradient(to top, #ff8a00, #da1b60);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-  }
 `;

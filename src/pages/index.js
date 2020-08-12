@@ -3,11 +3,12 @@ import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 import { useMediaQuery } from "react-responsive";
 
+import { fonts, breakpoints, settings } from "../constants";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import ProjectPane from "../components/projectPane";
 import AspectObject from "../components/aspectObject";
-import { fonts, breakpoints, settings } from "../constants";
+import FancyText from "../components/fancyText";
 
 const IndexPage = (data) => {
   const [selectedProject, setSelectedProject] = useState(
@@ -48,20 +49,40 @@ const IndexPage = (data) => {
             </IntroLinks>
           </div>
         </Intro>
-        <BodyLabel>Projects</BodyLabel>
-        <BodyLayout>
-          {!isTabletOrMobile && (
-            <ProjectPaneContainer>
-              <ProjectPane data={selectedProject} />
-            </ProjectPaneContainer>
-          )}
+        <Body>
+          <FancyText content={"Projects"} color={"#da1b60"} />
 
-          <Grid>
-            {data.data.allContentfulProject.edges.map((edge) => {
-              return (
-                <li key={edge.node.title}>
-                  {isTabletOrMobile ? (
-                    <Link to={`/${edge.node.slug}/`}>
+          <BodyLayout>
+            {!isTabletOrMobile && (
+              <ProjectPaneContainer>
+                <ProjectPane data={selectedProject} />
+              </ProjectPaneContainer>
+            )}
+
+            <Grid>
+              {data.data.allContentfulProject.edges.map((edge) => {
+                return (
+                  <li key={edge.node.title}>
+                    {isTabletOrMobile ? (
+                      <Link to={`/${edge.node.slug}/`}>
+                        <Tile onClick={() => setSelectedProject(edge.node)}>
+                          <TileFrameTopBottom className={`frame`} />
+                          <TileFrameLeftRight className={`frame`} />
+                          <AspectObject
+                            ratioWidth={8}
+                            ratioHeight={6}
+                            backgroundColor={"#000"}
+                          >
+                            <img src={edge.node.poster.sizes.src} alt={""} />
+                          </AspectObject>
+                          <Label>
+                            <LabelTop>{edge.node.title}</LabelTop>
+
+                            <LabelBottom>{edge.node.client}</LabelBottom>
+                          </Label>
+                        </Tile>
+                      </Link>
+                    ) : (
                       <Tile onClick={() => setSelectedProject(edge.node)}>
                         <TileFrameTopBottom className={`frame`} />
                         <TileFrameLeftRight className={`frame`} />
@@ -72,37 +93,18 @@ const IndexPage = (data) => {
                         >
                           <img src={edge.node.poster.sizes.src} alt={""} />
                         </AspectObject>
-                        <Label>
-                          <LabelTop>{edge.node.title}</LabelTop>
-
-                          <LabelBottom>{edge.node.client}</LabelBottom>
-                        </Label>
                       </Tile>
-                    </Link>
-                  ) : (
-                    <Tile onClick={() => setSelectedProject(edge.node)}>
-                      <TileFrameTopBottom className={`frame`} />
-                      <TileFrameLeftRight className={`frame`} />
-                      <AspectObject
-                        ratioWidth={8}
-                        ratioHeight={6}
-                        backgroundColor={"#000"}
-                      >
-                        <img src={edge.node.poster.sizes.src} alt={""} />
-                      </AspectObject>
-                    </Tile>
-                  )}
-                </li>
-              );
-            })}
-          </Grid>
-        </BodyLayout>
+                    )}
+                  </li>
+                );
+              })}
+            </Grid>
+          </BodyLayout>
+        </Body>
       </Layout>
     </>
   );
 };
-
-export default IndexPage;
 
 export const query = graphql`
   {
@@ -153,6 +155,8 @@ export const query = graphql`
   }
 `;
 
+const Body = styled.div``;
+
 const BodyLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -165,11 +169,15 @@ const BodyLayout = styled.div`
 
 const Intro = styled.div`
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 20px;
   margin-bottom: 30px;
 
-  @media (min-width: ${breakpoints.sm}) {
+  @media (min-width: ${breakpoints.xs}) {
+    grid-template-columns: 150px 1fr;
+  }
+
+  @media (min-width: ${breakpoints.md}) {
     grid-template-columns: 200px 1fr 1fr;
   }
 `;
@@ -345,3 +353,5 @@ const LabelBottom = styled.div`
   font-style: italic;
   font-weight: 300;
 `;
+
+export default IndexPage;
