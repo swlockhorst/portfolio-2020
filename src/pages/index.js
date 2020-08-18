@@ -85,9 +85,6 @@ const IndexPage = (data) => {
                         >
                           <img src={edge.node.poster.sizes.src} alt={""} />
                         </AspectObject>
-                        <Label>
-                          <LabelTop>{edge.node.title}</LabelTop>
-                        </Label>
                       </Tile>
                     ) : (
                       <Tile onClick={() => setSelectedProject(edge.node)}>
@@ -325,18 +322,6 @@ const TileFrameLeftRight = styled.div`
     content: "";
     right: 0;
   }
-`;
-
-const Label = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 10px;
-  background: linear-gradient(#222736, #201c29);
-`;
-
-const LabelTop = styled.div`
-  margin-bottom: 5px;
 `;
 
 export default IndexPage;

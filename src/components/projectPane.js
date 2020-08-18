@@ -13,17 +13,11 @@ const ProjectPane = (data) => {
         <Table>
           <tbody>
             <tr>
-              <th>Role</th>
+              <th>Project Title</th>
               <td>
                 <div>
-                  <div>Primary Developer</div>
+                  <div>{data.data.title}</div>
                 </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Tech</th>
-              <td>
-                <div>{data.data.tech}</div>
               </td>
             </tr>
             <tr>
@@ -31,6 +25,21 @@ const ProjectPane = (data) => {
               <td>
                 <div>
                   <div>{data.data.client}</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>Tech</th>
+              <td>
+                <div>
+                  {data.data.tech.map((item, index) => {
+                    return (
+                      <span key={index}>
+                        {item}
+                        {index + 1 === data.data.tech.length ? "" : ", "}
+                      </span>
+                    );
+                  })}
                 </div>
               </td>
             </tr>
