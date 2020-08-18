@@ -13,7 +13,7 @@ const ProjectPane = (data) => {
         <Table>
           <tbody>
             <tr>
-              <th>Project Title</th>
+              <th>Title</th>
               <td>
                 <div>
                   <div>{data.data.title}</div>
