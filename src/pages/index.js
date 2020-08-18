@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import styled from "@emotion/styled";
 import { useMediaQuery } from "react-responsive";
 
 import { breakpoints, settings } from "../constants";
+import useModal from "../hooks/useModal";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import ProjectPane from "../components/projectPane";
 import AspectObject from "../components/aspectObject";
 import FancyText from "../components/fancyText";
+import Modal from "../components/modal";
 
 const IndexPage = (data) => {
+  const { open, openModal, closeModal } = useModal();
   const [selectedProject, setSelectedProject] = useState(
     data.data.allContentfulProject.edges[0].node
   );
@@ -19,25 +22,33 @@ const IndexPage = (data) => {
     query: `(max-width: ${breakpoints.lg})`,
   });
 
+  function mobileTileAction(data) {
+    setSelectedProject(data);
+    openModal();
+  }
+
   return (
     <>
       <Layout>
         <SEO title="Home" />
         <Intro>
-          <IntroPic>
-            <AspectObject
-              ratioWidth={1}
-              ratioHeight={1}
-              backgroundColor={"#000"}
-            >
-              <img src={data.data.contentfulPage.images[0].file.url} alt="" />
-            </AspectObject>
-          </IntroPic>
+          <div>
+            <IntroPic>
+              <AspectObject
+                ratioWidth={1}
+                ratioHeight={1}
+                backgroundColor={"#000"}
+              >
+                <img src={data.data.contentfulPage.images[0].file.url} alt="" />
+              </AspectObject>
+            </IntroPic>
+          </div>
           <IntroBody>
             {data.data.contentfulPage.body.content[0].content[0].value}
           </IntroBody>
-          <div>
-            <ContactLabel>How to contact me:</ContactLabel>
+
+          <ContactSection>
+            <ContactTitle>Reach out to me here:</ContactTitle>
             <IntroLinks>
               {data.data.contentfulPage.socialMediaLinks.map((link, index) => {
                 return (
@@ -47,7 +58,7 @@ const IndexPage = (data) => {
                 );
               })}
             </IntroLinks>
-          </div>
+          </ContactSection>
         </Intro>
         <Body>
           <FancyText content={"Projects"} />
@@ -64,22 +75,20 @@ const IndexPage = (data) => {
                 return (
                   <li key={edge.node.title}>
                     {isTabletOrMobile ? (
-                      <Link to={`/${edge.node.slug}/`}>
-                        <Tile onClick={() => setSelectedProject(edge.node)}>
-                          <TileFrameTopBottom className={`frame`} />
-                          <TileFrameLeftRight className={`frame`} />
-                          <AspectObject
-                            ratioWidth={8}
-                            ratioHeight={6}
-                            backgroundColor={"#000"}
-                          >
-                            <img src={edge.node.poster.sizes.src} alt={""} />
-                          </AspectObject>
-                          <Label>
-                            <LabelTop>{edge.node.title}</LabelTop>
-                          </Label>
-                        </Tile>
-                      </Link>
+                      <Tile onClick={() => mobileTileAction(edge.node)}>
+                        <TileFrameTopBottom className={`frame`} />
+                        <TileFrameLeftRight className={`frame`} />
+                        <AspectObject
+                          ratioWidth={8}
+                          ratioHeight={6}
+                          backgroundColor={"#000"}
+                        >
+                          <img src={edge.node.poster.sizes.src} alt={""} />
+                        </AspectObject>
+                        <Label>
+                          <LabelTop>{edge.node.title}</LabelTop>
+                        </Label>
+                      </Tile>
                     ) : (
                       <Tile onClick={() => setSelectedProject(edge.node)}>
                         <TileFrameTopBottom className={`frame`} />
@@ -100,6 +109,13 @@ const IndexPage = (data) => {
           </BodyLayout>
         </Body>
       </Layout>
+
+      {open && isTabletOrMobile ? (
+        <Modal
+          close={closeModal}
+          render={() => <ProjectPane data={selectedProject} />}
+        />
+      ) : null}
     </>
   );
 };
@@ -183,7 +199,6 @@ const Intro = styled.div`
 const IntroPic = styled.div`
   position: relative;
   margin-bottom: 20px !important;
-  display: inline-table;
 
   &:before {
     content: "";
@@ -201,12 +216,18 @@ const IntroBody = styled.p`
   margin-bottom: 20px;
 `;
 
-const ContactLabel = styled.h2`
+const ContactSection = styled.section``;
+const ContactTitle = styled.span`
   font-size: 20px;
 `;
 
 const IntroLinks = styled.ul`
   font-size: 20px;
+  padding-top: 4px;
+
+  li {
+    margin-bottom: 4px;
+  }
 `;
 
 const ProjectPaneContainer = styled.div`
@@ -316,11 +337,6 @@ const Label = styled.div`
 
 const LabelTop = styled.div`
   margin-bottom: 5px;
-`;
-
-const LabelBottom = styled.div`
-  font-style: italic;
-  font-weight: 300;
 `;
 
 export default IndexPage;

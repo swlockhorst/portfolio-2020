@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
  * you would still like to reserve the space in the layout.
  * Usage:
  * <AspectObject ratioWidth={16} ratioHeight={9} backgroundColor={'#000'}>
- *   <img src='/static/img/nX9AVtA.jpg' />
+ *   <img src='/path/to/img/nX9AVtA.jpg' />
  * </AspectObject>
  * Note:
  * if a child element is not given to the component, then

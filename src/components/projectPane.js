@@ -1,8 +1,6 @@
 import React from "react";
-import { Link } from "gatsby";
 import styled from "@emotion/styled";
 import AspectObject from "../components/aspectObject";
-import Button from "../components/button";
 
 const ProjectPane = (data) => {
   return (
@@ -43,11 +41,11 @@ const ProjectPane = (data) => {
         <BodyDescription>
           {data.data.longDescription.longDescription}
         </BodyDescription>
-        <ButtonContainer>
+        {/* <ButtonContainer>
           <Link to={`/${data.data.slug}/`}>
             <Button>Learn More</Button>
           </Link>
-        </ButtonContainer>
+        </ButtonContainer> */}
       </Body>
     </Container>
   );
@@ -114,7 +112,7 @@ const BodyDescription = styled.p`
   margin-bottom: 30px;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+// const ButtonContainer = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `;
