@@ -7,7 +7,11 @@ const Modal = ({ children, close, render }) => {
     <Portal>
       <Overlay onClick={close} />
       <ModalContainer>
-        <CloseButton onClick={close}>Close</CloseButton>
+        <CloseButton onClick={close}>
+          <svg width={24} height={24}>
+            <path d="M24 20.188l-8.315-8.209 8.2-8.282L20.188 0l-8.212 8.318L3.666.115 0 3.781l8.321 8.24-8.206 8.313L3.781 24l8.237-8.318 8.285 8.203z" />
+          </svg>
+        </CloseButton>
         {render(children) || children}
       </ModalContainer>
     </Portal>
@@ -40,4 +44,18 @@ const CloseButton = styled.button`
   top: 20px;
   right: 20px;
   z-index: 3;
+  border: none;
+  background: none;
+  box-shadow: none;
+
+  svg {
+    fill: #222736;
+    filter: drop-shadow(0 0 8px #222736);
+  }
+
+  &:hover {
+    svg {
+      fill: #da1b60;
+    }
+  }
 `;
